@@ -1,0 +1,21 @@
+FROM mattermost/mattermost-team-edition:10.11.5
+
+# Create necessary directories
+RUN mkdir -p /mattermost/data /mattermost/logs /mattermost/config /mattermost/plugins
+
+# Set environment variables for Scaleway deployment
+ENV MM_SERVICESETTINGS_SITE_URL=https://mattermostns2hlwvdds-mattermost-real.functions.fnc.fr-par.scw.cloud
+ENV MM_SQLSETTINGS_DRIVERNAME=postgres
+ENV MM_SQLSETTINGS_DATASOURCE=postgres://mmuser:MMuser123!@51.159.25.151:16563/mattermost?sslmode=disable&connect_timeout=10
+ENV MM_ADMINSETTINGS_ENABLE_OPEN_SERVER=true
+ENV MM_SERVICESETTINGS_LISTENANDADDRESS=:8080
+
+# Expose port
+EXPOSE 8080
+
+# Health check endpoint for Scaleway
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/api/v4/system/ping || exit 1
+
+# Start Mattermost
+CMD ["./bin/mattermost"]

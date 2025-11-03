@@ -1,0 +1,23 @@
+service: mattermost-serverless
+
+provider:
+  name: scaleway
+  runtime: docker
+  region: fr-par-1
+
+plugins:
+  - serverless-scaleway-functions
+
+functions:
+  mattermost:
+    image: ./Dockerfile
+    minScale: 1
+    maxScale: 3
+    memoryLimit: 1024
+    cpuLimit: 500
+    timeout: 30s
+    privacy: public
+    description: "Mattermost team chat server"
+    environment:
+      SITE_URL: ${SITE_URL}
+      DATABASE_URL: ${DATABASE_URL}
