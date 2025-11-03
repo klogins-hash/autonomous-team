@@ -1,0 +1,25 @@
+serverless_api:
+  functions:
+  - autonomous-coordinator
+  - voice-synthesis-agent
+  - web-search-agent
+  - code-execution-sandbox
+  - api-testing-agent
+  - documentation-lookup
+  - mcp-server-manager
+  - infrastructure-monitor
+  routing:
+    GET /mcp: mcp-server-manager
+    GET /status: infrastructure-monitor
+    POST /docs: documentation-lookup
+    POST /execute: code-execution-sandbox
+    POST /search: web-search-agent
+    POST /tasks: autonomous-coordinator
+    POST /test-api: api-testing-agent
+    POST /voice: voice-synthesis-agent
+  serverless_features:
+    auto_scaling: true
+    cold_start_optimization: true
+    pay_per_use: true
+    request_timeout: 30
+  type: scaleway-api-gateway

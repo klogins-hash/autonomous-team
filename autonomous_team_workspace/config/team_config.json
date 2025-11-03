@@ -188,5 +188,25 @@
     "task_queue": "/root/CascadeProjects/autonomous_team_workspace/tasks/queue",
     "task_results": "/root/CascadeProjects/autonomous_team_workspace/tasks/results",
     "task_history": "/root/CascadeProjects/autonomous_team_workspace/tasks/history"
+  },
+  "architecture_preference": {
+    "primary": "serverless",
+    "secondary": "container",
+    "avoid": "vm_instances",
+    "reasoning": "Cost-effective, scalable, and maintainable",
+    "remember": true,
+    "priority": "highest",
+    "enforced": true
+  },
+  "serverless_first": {
+    "enabled": true,
+    "functions_deployed": 8,
+    "database_type": "postgresql-serverless",
+    "cache_type": "redis-serverless",
+    "api_gateway": "scaleway-serverless",
+    "monitoring": "serverless-optimized",
+    "cost_model": "pay_per_use",
+    "scaling": "automatic",
+    "deployment_timestamp": "2025-11-03T04:39:55.197602"
   }
 }

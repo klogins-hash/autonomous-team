@@ -1,0 +1,50 @@
+deployment:
+  architecture: serverless-first
+  project_id: c5d299b8-8462-40fb-b5ae-32a8808bf394
+  region: fr-par
+  timestamp: '2025-11-03T04:39:55.198247'
+  zone: fr-par-1
+scaleway_resources:
+  database_id: c7760d46-d056-457c-997f-a925ae29169a
+  function_namespace: autonomous-team
+  load_balancer_id: 5762a273-5b57-43a3-bd00-31c4ff7ae372
+  load_balancer_ip: 163.172.191.225
+  redis_cluster_id: 2b5ca3dc-ea53-481f-9c9e-0b2677c2ff68
+serverless_services:
+  api_gateway:
+    functions: 8
+    routes: 8
+    type: scaleway-serverless
+  cache:
+    auto_scaling: true
+    memory_optimized: true
+    type: redis-serverless
+  database:
+    auto_scaling: true
+    connection_pooling: true
+    type: postgresql-serverless
+  functions:
+    cost_model: pay_per_use
+    count: 8
+    functions:
+    - autonomous-coordinator
+    - voice-synthesis-agent
+    - web-search-agent
+    - code-execution-sandbox
+    - api-testing-agent
+    - documentation-lookup
+    - mcp-server-manager
+    - infrastructure-monitor
+    runtime: python311
+    scaling: automatic
+  monitoring:
+    alerts: 3
+    metrics: 6
+    type: serverless-optimized
+team_memory:
+  cost_optimized: true
+  enforced: true
+  priority: highest
+  remember: true
+  scaling_automatic: true
+  serverless_first: true

@@ -1,0 +1,8 @@
+serverless_cache:
+  auto_scaling: true
+  cluster_size: 1
+  connection_mode: serverless
+  description: Serverless-optimized caching layer
+  memory_optimized: true
+  provider: scaleway
+  type: redis-serverless

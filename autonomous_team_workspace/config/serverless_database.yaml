@@ -1,0 +1,8 @@
+serverless_database:
+  connection_pooling: true
+  description: Serverless-optimized database connection
+  idle_timeout: 300
+  max_connections: 20
+  provider: scaleway
+  timeout: 30
+  type: postgresql-serverless

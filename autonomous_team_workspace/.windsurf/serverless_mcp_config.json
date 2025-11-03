@@ -1,0 +1,263 @@
+{
+  "version": "1.0.0",
+  "name": "autonomous-team-serverless-windsurf",
+  "description": "Serverless-first autonomous team MCP configuration for Windsurf IDE",
+  "serverless_first": true,
+  "architecture_priority": "serverless",
+  "mcpServers": {
+    "autonomous-team-serverless": {
+      "command": "npx",
+      "args": ["-y", "@autonomous-team/mcp-server"],
+      "env": {
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+        "WINDSURF_IDE": "true",
+        "SERVERLESS_ARCHITECTURE": "true",
+        "ARCHITECTURE_PREFERENCE": "serverless",
+        "SCALEWAY_PROJECT_ID": "c5d299b8-8462-40fb-b5ae-32a8808bf394"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 30000,
+      "serverless_optimized": true,
+      "description": "Serverless-first autonomous team via npx"
+    },
+    "deepwiki-official": {
+      "command": "npx",
+      "args": ["-y", "@deepwiki/mcp-server"],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      },
+      "description": "Official DeepWiki documentation server"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_ROOT": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "description": "Filesystem access for autonomous team workspace"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      },
+      "disabled": true,
+      "description": "GitHub repository access (enable with token)"
+    },
+    "cartesia-voice-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/autonomous_team_workspace/integration/cartesia/cartesia_fixed.py"],
+      "env": {
+        "CARTESIA_API_KEY": "sk_car_J5wk4g3bzwyggQ6uBftGMC",
+        "CARTESIA_VERSION": "2025-04-16",
+        "WINDSURF_IDE": "true",
+        "SERVERLESS_ARCHITECTURE": "true"
+      },
+      "description": "British voice synthesis (serverless-optimized)"
+    }
+  },
+  "windsurf": {
+    "integration": {
+      "deployment_method": "serverless",
+      "architecture": "serverless_first",
+      "auto_install": true,
+      "version_check": true,
+      "fallback_to_local": false,
+      "serverless_priority": true
+    },
+    "ui": {
+      "theme": "autonomous-team-serverless",
+      "showTaskPanel": true,
+      "showVoiceControls": true,
+      "showSearchInterface": true,
+      "showCodeExecutor": true,
+      "showDocumentationPanel": true,
+      "compactMode": false,
+      "serverless_indicator": true,
+      "cost_tracking": true
+    },
+    "features": {
+      "taskDelegation": {
+        "enabled": true,
+        "serverless_optimized": true,
+        "pay_per_use": true,
+        "auto_scaling": true,
+        "shortcuts": {
+          "delegateTask": "ctrl+shift+d",
+          "showTasks": "ctrl+shift+t",
+          "taskStatus": "ctrl+shift+s",
+          "quickVoice": "ctrl+shift+v"
+        },
+        "templates": {
+          "serverlessVoiceSynthesis": {
+            "type": "voice_synthesis",
+            "priority": "medium",
+            "voice_profile": "professional_british",
+            "serverless_deployment": true,
+            "cost_optimized": true
+          },
+          "serverlessWebSearch": {
+            "type": "web_search",
+            "priority": "medium",
+            "max_results": 10,
+            "serverless_deployment": true,
+            "cache_enabled": true
+          },
+          "serverlessCodeExecution": {
+            "type": "code_execution",
+            "priority": "medium",
+            "language": "python",
+            "serverless_deployment": true,
+            "sandbox": "serverless"
+          }
+        }
+      },
+      "voiceSynthesis": {
+        "enabled": true,
+        "serverless_compatible": true,
+        "cost_per_request": 0.001,
+        "voices": {
+          "professional_british": {
+            "description": "Strategic, calm communication",
+            "use_case": "business_communication",
+            "serverless_ready": true,
+            "cost_optimized": true
+          },
+          "warm_british": {
+            "description": "Empathetic, supportive tone",
+            "use_case": "help_and_support",
+            "serverless_ready": true,
+            "cost_optimized": true
+          },
+          "insightful_british": {
+            "description": "Thoughtful, analytical approach",
+            "use_case": "analysis_and_insights",
+            "serverless_ready": true,
+            "cost_optimized": true
+          }
+        }
+      },
+      "webSearch": {
+        "enabled": true,
+        "serverless_optimized": true,
+        "cost_per_search": 0.0005,
+        "engines": ["duckduckgo", "google"],
+        "maxResults": 10,
+        "cache_ttl": 300,
+        "standard_mcp": true
+      },
+      "codeExecution": {
+        "enabled": true,
+        "serverless_compatible": true,
+        "cost_per_execution": 0.002,
+        "languages": ["python", "javascript", "bash"],
+        "sandbox": "serverless",
+        "timeout": 30,
+        "memory_limit": "256MB"
+      }
+    },
+    "performance": {
+      "serverless_optimized": true,
+      "pay_per_use": true,
+      "caching": {
+        "enabled": true,
+        "ttl": 300000,
+        "maxSize": "100MB",
+        "serverless_cache": true,
+        "cost_optimized": true
+      },
+      "async": {
+        "enabled": true,
+        "maxConcurrentTasks": 10,
+        "queueSize": 100,
+        "serverless_handling": true,
+        "auto_scaling": true
+      },
+      "scaling": {
+        "min_instances": 0,
+        "max_instances": 100,
+        "cold_start_optimization": true,
+        "idle_timeout": 300
+      }
+    },
+    "cost_tracking": {
+      "enabled": true,
+      "real_time": true,
+      "budget_alerts": true,
+      "monthly_limit": 50,
+      "currency": "USD",
+      "breakdown": {
+        "function_invocations": true,
+        "data_transfer": true,
+        "storage": true,
+        "api_calls": true
+      }
+    }
+  },
+  "serverless": {
+    "functions": {
+      "count": 8,
+      "runtime": "python311",
+      "memory_limit": "256MB",
+      "timeout": "30s",
+      "auto_scaling": true,
+      "pay_per_use": true,
+      "functions": [
+        "autonomous-coordinator",
+        "voice-synthesis-agent",
+        "web-search-agent",
+        "code-execution-sandbox",
+        "api-testing-agent",
+        "documentation-lookup",
+        "mcp-server-manager",
+        "infrastructure-monitor"
+      ]
+    },
+    "database": {
+      "type": "postgresql-serverless",
+      "connection_pooling": True,
+      "auto_scaling": True,
+      "cost_model": "pay_per_use"
+    },
+    "cache": {
+      "type": "redis-serverless",
+      "memory_optimized": True,
+      "auto_scaling": True,
+      "cluster_size": 1
+    },
+    "api_gateway": {
+      "type": "scaleway-serverless",
+      "routes": 8,
+      "auto_scaling": True,
+      "cost_per_request": 0.0001
+    },
+    "monitoring": {
+      "type": "serverless-optimized",
+      "metrics": 6,
+      "alerts": 3,
+      "real_time": True
+    }
+  },
+  "deployment": {
+    "method": "serverless",
+    "platform": "scaleway",
+    "project_id": "c5d299b8-8462-40fb-b5ae-32a8808bf394",
+    "region": "fr-par",
+    "load_balancer_ip": "163.172.191.225",
+    "auto_update": True,
+    "zero_downtime": True
+  },
+  "team_memory": {
+    "serverless_first": true,
+    "remember_preference": true,
+    "priority": "highest",
+    "enforced": True,
+    "cost_optimized": True,
+    "scaling_automatic": True,
+    "deployment_preference": "serverless",
+    "avoid": ["vm_instances", "manual_scaling", "fixed_capacity"]
+  }
+}

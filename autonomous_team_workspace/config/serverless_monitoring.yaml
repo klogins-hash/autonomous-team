@@ -1,0 +1,22 @@
+serverless_monitoring:
+  alerts:
+    cold_start_frequency:
+      function: all
+      threshold: 20%
+    error_rate:
+      function: all
+      threshold: 5%
+    high_latency:
+      function: all
+      threshold: 5s
+  dashboards:
+    cost_tracking: true
+    scaling_metrics: true
+    serverless_performance: true
+  metrics:
+    cold_starts: true
+    concurrent_executions: true
+    error_rates: true
+    execution_duration: true
+    function_invocations: true
+    memory_usage: true
