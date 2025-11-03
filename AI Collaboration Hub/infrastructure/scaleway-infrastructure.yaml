@@ -1,0 +1,351 @@
+```yaml
+# Scaleway Infrastructure Configuration for AI Collaboration Hub
+
+project_name: "ai-collaboration-hub"
+environment: "production"
+region: "fr-par"  # Paris region
+zones:
+  - "fr-par-1"
+  - "fr-par-2"
+
+# Database Configuration
+database:
+  postgresql:
+    name: "aihub-postgres"
+    instance_type: "DB-GP-XL"
+    specs:
+      vcpus: 8
+      memory_gb: 32
+      storage_gb: 384
+      storage_type: "ssd"
+    
+    high_availability: true
+    backup:
+      automated: true
+      frequency: "daily"
+      retention_days: 30
+      cross_region: true
+    
+    read_replicas: 2
+    replica_specs:
+      instance_type: "DB-GP-M"
+      vcpus: 4
+      memory_gb: 16
+      storage_gb: 192
+    
+    schemas:
+      - name: "users_auth"
+        tables:
+          - "users"
+          - "roles"
+          - "permissions"
+          - "api_keys"
+      
+      - name: "projects"
+        tables:
+          - "projects"
+          - "project_members"
+          - "project_settings"
+          - "project_versions"
+      
+      - name: "model_metadata"
+        tables:
+          - "models"
+          - "model_versions"
+          - "model_metrics"
+          - "training_jobs"
+      
+      - name: "datasets"
+        tables:
+          - "datasets"
+          - "dataset_versions"
+          - "dataset_splits"
+          - "data_validation_rules"
+      
+      - name: "collaboration_data"
+        tables:
+          - "collaboration_sessions"
+          - "activity_logs"
+          - "notifications"
+          - "comments"
+    
+    security:
+      ssl_enabled: true
+      vpc_isolation: true
+      ip_whitelist: true
+
+# Redis Cache Configuration
+cache:
+  redis:
+    name: "aihub-redis"
+    cluster_mode: true
+    shards: 3
+    instance_type: "REDIS-M"
+    specs:
+      memory_gb: 4
+      per_shard: true
+    
+    use_cases:
+      - "session_management"
+      - "real_time_collaboration_state"
+      - "model_training_status"
+      - "temporary_results_cache"
+      - "rate_limiting"
+    
+    eviction_policy: "volatile-lru"
+    persistence:
+      rdb: true
+      aof: true
+      fsync: "everysec"
+    
+    backup:
+      automated: true
+      frequency: "daily"
+      retention_days: 7
+
+# Object Storage Configuration
+storage:
+  buckets:
+    - name: "aihub-datasets"
+      type: "hot_storage"
+      versioning: true
+      lifecycle_rules:
+        - action: "archive"
+          days: 90
+          storage_class: "glacier"
+        - action: "delete"
+          days: 365
+      cors_enabled: true
+      encryption: "AES-256"
+    
+    - name: "aihub-model-artifacts"
+      type: "hot_storage"
+      versioning: true
+      retention_days: 180
+      encryption: "AES-256"
+      lifecycle_rules:
+        - action: "archive"
+          days: 180
+          storage_class: "glacier"
+    
+    - name: "aihub-user-uploads"
+      type: "hot_storage"
+      cdn_enabled: true
+      max_size_gb: 10
+      encryption: "AES-256"
+      cors_enabled: true
+    
+    - name: "aihub-backups"
+      type: "cold_storage"
+      versioning: true
+      encryption: "AES-256"
+      lifecycle_rules:
+        - action: "delete"
+          days: 90
+
+# Container Registry
+container_registry:
+  name: "aihub-registry"
+  repositories:
+    - "frontend"
+    - "backend-api"
+    - "model-service"
+    - "collaboration-service"
+    - "notification-service"
+    - "dataset-processor"
+  
+  image_retention:
+    keep_last: 10
+    retention_days: 30
+
+# Kubernetes Cluster
+kubernetes:
+  cluster_name: "aihub-k8s"
+  version: "1.27"
+  cni: "cilium"
+  
+  node_pools:
+    - name: "general"
+      instance_type: "PRO2-M"
+      specs:
+        vcpus: 4
+        memory_gb: 16
+      min_nodes: 3
+      max_nodes: 10
+      autoscaling: true
+      autoscaling_config:
+        scale_down_delay: "5m"
+        scale_up_delay: "1m"
+      tags:
+        - "general-purpose"
+    
+    - name: "ml-workloads"
+      instance_type: "GPU-3070-S"
+      specs:
+        vcpus: 8
+        memory_gb: 32
+        gpu_count: 1
+        gpu_type: "RTX-3070"
+      min_nodes: 2
+      max_nodes: 5
+      autoscaling: true
+      tags:
+        - "gpu"
+        - "ml-training"
+    
+    - name: "memory-intensive"
+      instance_type: "PRO2-XL"
+      specs:
+        vcpus: 8
+        memory_gb: 64
+      min_nodes: 1
+      max_nodes: 3
+      autoscaling: true
+      tags:
+        - "high-memory"
+
+# Serverless Functions
+serverless:
+  functions:
+    - name: "real-time-collaboration-handler"
+      runtime: "python3.11"
+      memory_mb: 512
+      timeout_seconds: 30
+      triggers:
+        - type: "http"
+          path: "/api/collaboration"
+    
+    - name: "model-deployment-orchestrator"
+      runtime: "python3.11"
+      memory_mb: 1024
+      timeout_seconds: 300
+      triggers:
+        - type: "pubsub"
+          topic: "model-deployment-requests"
+    
+    - name: "dataset-processor"
+      runtime: "python3.11"
+      memory_mb: 2048
+      timeout_seconds: 600
+      triggers:
+        - type: "object_storage"
+          bucket: "aihub-datasets"
+          events: ["object.created"]
+    
+    - name: "notification-service"
+      runtime: "python3.11"
+      memory_mb: 256
+      timeout_seconds: 30
+      triggers:
+        - type: "pubsub"
+          topic: "notifications"
+
+# Load Balancer Configuration
+load_balancer:
+  name: "aihub-lb"
+  type: "application"
+  ssl_termination: true
+  zones:
+    - "fr-par-1"
+    - "fr-par-2"
+  
+  backends:
+    - name: "api-backend"
+      protocol: "http"
+      port: 8000
+      health_check:
+        path: "/health"
+        interval_seconds: 10
+        timeout_seconds: 5
+    
+    - name: "web-backend"
+      protocol: "http"
+      port: 3000
+      health_check:
+        path: "/"
+        interval_seconds: 10
+        timeout_seconds: 5
+  
+  frontends:
+    - name: "api-frontend"
+      protocol: "https"
+      port: 443
+      certificate: "aihub-api-cert"
+      rules:
+        - hostname: "api.aihub.domain"
+          backend: "api-backend"
+    
+    - name: "web-frontend"
+      protocol: "https"
+      port: 443
+      certificate: "aihub-web-cert"
+      rules:
+        - hostname: "web.aihub.domain"
+          backend: "web-backend"
+    
+    - name: "ml-frontend"
+      protocol: "https"
+      port: 443
+      certificate: "aihub-ml-cert"
+      rules:
+        - hostname: "ml.aihub.domain"
+          backend: "api-backend"
+
+# CDN Configuration
+cdn:
+  name: "aihub-cdn"
+  origins:
+    - name: "static-assets"
+      domain: "static.aihub.domain"
+      bucket: "aihub-user-uploads"
+    
+    - name: "user-content"
+      domain: "content.aihub.domain"
+      bucket: "aihub-user-uploads"
+  
+  caching_rules:
+    - pattern: "*.js"
+      ttl: 86400  # 24 hours
+      compress: true
+    
+    - pattern: "*.css"
+      ttl: 86400
+      compress: true
+    
+    - pattern: "*.jpg,*.png,*.gif,*.webp"
+      ttl: 604800  # 7 days
+      compress: true
+    
+    - pattern: "api/*"
+      ttl: 0
+      compress: true
+  
+  security:
+    https_redirect: true
+    tls_version: "1.3"
+
+# Monitoring Configuration
+monitoring:
+  prometheus:
+    enabled: true
+    retention_days: 30
+    scrape_interval: "15s"
+  
+  grafana:
+    enabled: true
+    dashboards:
+      - "cluster-overview"
+      - "application-metrics"
+      - "database-performance"
+      - "model-training-status"
+  
+  alerts:
+    - name: "high-cpu-usage"
+      condition: "cpu_usage > 80"
+      severity: "warning"
+      action: "scale-up"
+    
+    - name: "memory-critical"
+      condition: "memory_usage > 90"
+      severity: "critical"
+      action

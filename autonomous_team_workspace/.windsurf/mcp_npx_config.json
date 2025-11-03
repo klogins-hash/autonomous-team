@@ -1,0 +1,186 @@
+{
+  "version": "1.0.0",
+  "name": "autonomous-team-windsurf-npx-integration",
+  "description": "Standard npx-based autonomous team MCP configuration for Windsurf IDE",
+  "mcpServers": {
+    "autonomous-team-server": {
+      "command": "npx",
+      "args": ["-y", "@autonomous-team/mcp-server"],
+      "env": {
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+        "WINDSURF_IDE": "true",
+        "NODE_MCP_WRAPPER": "true"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 30000,
+      "restartOnFailure": true,
+      "maxRestarts": 3,
+      "description": "Autonomous team server via standard npx deployment",
+      "npx_compatible": true,
+      "standard_deployment": true
+    },
+    "deepwiki-official": {
+      "command": "npx",
+      "args": ["-y", "@deepwiki/mcp-server"],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 15000,
+      "description": "Official DeepWiki documentation via npx"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_ROOT": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 10000,
+      "description": "Filesystem access via standard npx package"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      },
+      "disabled": true,
+      "autoStart": false,
+      "timeout": 15000,
+      "description": "GitHub access via standard npx package"
+    },
+    "cartesia-voice-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/autonomous_team_workspace/integration/cartesia/cartesia_fixed.py"],
+      "env": {
+        "CARTESIA_API_KEY": "sk_car_J5wk4g3bzwyggQ6uBftGMC",
+        "CARTESIA_VERSION": "2025-04-16",
+        "WINDSURF_IDE": "true"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 20000,
+      "description": "British voice synthesis (local Python server)"
+    }
+  },
+  "windsurf": {
+    "integration": {
+      "deployment_method": "npx",
+      "standard_compliant": true,
+      "auto_install": true,
+      "version_check": true,
+      "fallback_to_local": true
+    },
+    "ui": {
+      "theme": "autonomous-team",
+      "showTaskPanel": true,
+      "showVoiceControls": true,
+      "showSearchInterface": true,
+      "showCodeExecutor": true,
+      "showDocumentationPanel": true,
+      "compactMode": false,
+      "npx_indicator": true
+    },
+    "features": {
+      "taskDelegation": {
+        "enabled": true,
+        "npx_optimized": true,
+        "shortcuts": {
+          "delegateTask": "ctrl+shift+d",
+          "showTasks": "ctrl+shift+t",
+          "taskStatus": "ctrl+shift+s",
+          "quickVoice": "ctrl+shift+v"
+        },
+        "templates": {
+          "voiceSynthesis": {
+            "type": "voice_synthesis",
+            "priority": "medium",
+            "voice_profile": "professional_british",
+            "npx_deployment": true
+          },
+          "webSearch": {
+            "type": "web_search",
+            "priority": "medium",
+            "max_results": 10,
+            "npx_deployment": true
+          },
+          "codeExecution": {
+            "type": "code_execution",
+            "priority": "medium",
+            "language": "python",
+            "npx_deployment": true
+          }
+        }
+      },
+      "voiceSynthesis": {
+        "enabled": true,
+        "npx_compatible": true,
+        "voices": {
+          "professional_british": {
+            "description": "Strategic, calm communication",
+            "use_case": "business_communication",
+            "npx_ready": true
+          },
+          "warm_british": {
+            "description": "Empathetic, supportive tone",
+            "use_case": "help_and_support",
+            "npx_ready": true
+          },
+          "insightful_british": {
+            "description": "Thoughtful, analytical approach",
+            "use_case": "analysis_and_insights",
+            "npx_ready": true
+          }
+        }
+      },
+      "webSearch": {
+        "enabled": true,
+        "npx_optimized": true,
+        "engines": ["duckduckgo", "google"],
+        "maxResults": 10,
+        "standard_mcp": true
+      },
+      "codeExecution": {
+        "enabled": true,
+        "npx_compatible": true,
+        "languages": ["python", "javascript", "bash"],
+        "sandbox": true
+      }
+    },
+    "performance": {
+      "npx_optimized": true,
+      "caching": {
+        "enabled": true,
+        "ttl": 300000,
+        "maxSize": "100MB",
+        "npx_cache": true
+      },
+      "async": {
+        "enabled": true,
+        "maxConcurrentTasks": 5,
+        "queueSize": 50,
+        "npx_handling": true
+      }
+    }
+  },
+  "deployment": {
+    "method": "npx",
+    "package": "@autonomous-team/mcp-server",
+    "version": "1.0.0",
+    "registry": "npm",
+    "auto_update": true,
+    "fallback_local": true,
+    "standard_compliant": true
+  },
+  "workspace": {
+    "root": "/root/CascadeProjects/autonomous_team_workspace",
+    "npx_aware": true,
+    "watchFiles": true,
+    "autoIndex": true
+  }
+}

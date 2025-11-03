@@ -1,0 +1,107 @@
+{
+  "mcpServers": {
+    "autonomous-team-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/strands-agent-team/autonomous_team_mcp_server.py"],
+      "env": {
+        "PYTHONPATH": "/root/CascadeProjects/autonomous_team_workspace",
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "description": "Autonomous team task delegation and management server"
+    },
+    "deepwiki-official": {
+      "command": "npx",
+      "args": ["-y", "@deepwiki/mcp-server"],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      },
+      "description": "Official DeepWiki documentation server"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_ROOT": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "description": "Filesystem access for autonomous team workspace"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      },
+      "description": "GitHub repository access and management"
+    },
+    "cartesia-voice-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/autonomous_team_workspace/integration/cartesia/cartesia_fixed.py"],
+      "env": {
+        "CARTESIA_API_KEY": "sk_car_J5wk4g3bzwyggQ6uBftGMC",
+        "CARTESIA_VERSION": "2025-04-16"
+      },
+      "description": "Cartesia voice synthesis server for British female voices"
+    }
+  },
+  "windsurf": {
+    "version": "1.0.0",
+    "optimized": true,
+    "features": {
+      "task_delegation": {
+        "enabled": true,
+        "description": "Delegate tasks to autonomous team via MCP",
+        "tools": ["delegate_task", "get_task_status", "list_tasks", "get_team_capabilities"]
+      },
+      "voice_synthesis": {
+        "enabled": true,
+        "description": "Generate British female voice responses",
+        "voices": ["professional_british", "warm_british", "insightful_british"]
+      },
+      "web_search": {
+        "enabled": true,
+        "description": "Real-time web search and documentation retrieval"
+      },
+      "code_execution": {
+        "enabled": true,
+        "description": "Secure code execution in multiple languages",
+        "languages": ["python", "javascript", "bash"]
+      },
+      "api_testing": {
+        "enabled": true,
+        "description": "Test and validate API integrations"
+      },
+      "documentation_access": {
+        "enabled": true,
+        "description": "Access DeepWiki and local documentation"
+      },
+      "infrastructure_management": {
+        "enabled": true,
+        "description": "Scaleway resource optimization and management"
+      },
+      "secrets_management": {
+        "enabled": true,
+        "description": "Enterprise-grade secret management with Scaleway"
+      }
+    },
+    "workspace": {
+      "root": "/root/CascadeProjects/autonomous_team_workspace",
+      "structure": {
+        "agents": "agents/specialized/",
+        "tools": "tools/comprehensive/",
+        "integration": "integration/",
+        "infrastructure": "infrastructure/scaleway/",
+        "security": "security/secrets/",
+        "documentation": "documentation/",
+        "tasks": "tasks/",
+        "config": "config/"
+      }
+    },
+    "performance": {
+      "async_processing": true,
+      "task_queue": true,
+      "caching": true,
+      "error_handling": "graceful_degradation"
+    }
+  }
+}

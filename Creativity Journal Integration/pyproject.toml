@@ -1,0 +1,90 @@
+```toml
+[tool.poetry]
+name = "creativity-journal-integration"
+version = "1.0.0"
+description = "Voice-enabled journaling system for capturing creative moments and insights in real-time"
+authors = ["Creative AI Team <team@creativepatterns.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.104.1"
+uvicorn = {extras = ["standard"], version = "^0.24.0"}
+sqlalchemy = "^2.0.23"
+psycopg2-binary = "^2.9.9"
+redis = "^5.0.1"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+python-dotenv = "^1.0.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+aiofiles = "^23.2.1"
+httpx = "^0.25.2"
+cartesia = "^0.1.0"
+boto3 = "^1.29.7"
+numpy = "^1.26.2"
+pandas = "^2.1.3"
+scikit-learn = "^1.3.2"
+scipy = "^1.11.4"
+python-dateutil = "^2.8.2"
+pytz = "^2023.3"
+pydantic-extra-types = "^2.3.0"
+tenacity = "^8.2.3"
+structlog = "^23.2.0"
+prometheus-client = "^0.19.0"
+alembic = "^1.13.0"
+pytest = "^7.4.3"
+pytest-asyncio = "^0.21.1"
+pytest-cov = "^4.1.0"
+black = "^23.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.7.1"
+isort = "^5.13.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest-mock = "^3.12.0"
+faker = "^21.0.0"
+factory-boy = "^3.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_mode = 3
+include_trailing_comma = true
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+```

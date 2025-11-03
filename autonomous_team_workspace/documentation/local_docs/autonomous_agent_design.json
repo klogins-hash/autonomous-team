@@ -1,0 +1,11 @@
+{
+  "title": "Autonomous Agent Design Principles",
+  "content": "\n# Autonomous Agent Design\n\n## Documentation-First Approach\n- Always check documentation before implementation\n- Apply best practices from official docs\n- Log documentation usage for learning\n- Use autonomous reasoning as fallback\n\n## Agent Coordination\n- Use message-based communication\n- Implement shared memory pools\n- Dynamic agent selection based on task complexity\n- Context-aware decision making\n\n## Error Recovery\n- Implement self-healing mechanisms\n- Use retry logic with exponential backoff\n- Log errors for continuous improvement\n- Provide fallback capabilities\n                ",
+  "type": "design_principles",
+  "tags": [
+    "autonomous",
+    "agents",
+    "design",
+    "coordination"
+  ]
+}

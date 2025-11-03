@@ -1,0 +1,139 @@
+```yaml
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: creative_patterns_db
+    environment:
+      POSTGRES_USER: creative_user
+      POSTGRES_PASSWORD: secure_password_change_me
+      POSTGRES_DB: creative_patterns
+      POSTGRES_INITDB_ARGS: "-c max_connections=500 -c shared_buffers=4GB -c work_mem=32MB"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U creative_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - creative_network
+
+  # Redis Cluster
+  redis-master:
+    image: redis:7-alpine
+    container_name: creative_redis_master
+    command: redis-server --appendonly yes --maxmemory 8gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_master_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - creative_network
+
+  redis-replica-1:
+    image: redis:7-alpine
+    container_name: creative_redis_replica_1
+    command: redis-server --slaveof redis-master 6379 --appendonly yes
+    depends_on:
+      - redis-master
+    volumes:
+      - redis_replica1_data:/data
+    ports:
+      - "6380:6379"
+    networks:
+      - creative_network
+
+  redis-replica-2:
+    image: redis:7-alpine
+    container_name: creative_redis_replica_2
+    command: redis-server --slaveof redis-master 6379 --appendonly yes
+    depends_on:
+      - redis-master
+    volumes:
+      - redis_replica2_data:/data
+    ports:
+      - "6381:6379"
+    networks:
+      - creative_network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: creative_patterns_api
+    environment:
+      DATABASE_URL: postgresql://creative_user:secure_password_change_me@postgres:5432/creative_patterns
+      REDIS_URL: redis://redis-master:6379/0
+      API_ENV: development
+      LOG_LEVEL: DEBUG
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-master:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - creative_network
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: creative_patterns_ui
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+      REACT_APP_WS_URL: ws://localhost:8000/ws
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - creative_network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: creative_patterns_proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - creative_network
+
+volumes:
+  postgres_data:
+  redis_master_data:
+  redis_replica1_data:
+  redis_replica2_data:
+
+networks:
+  creative_network:
+    driver: bridge
+```

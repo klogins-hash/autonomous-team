@@ -1,0 +1,76 @@
+{
+  "task_delegation_examples": {
+    "voice_synthesis": {
+      "type": "voice_synthesis",
+      "description": "Generate British voice response for strategic update",
+      "priority": "medium",
+      "parameters": {
+        "text": "Hello, I'm here to help with your autonomous team coordination.",
+        "voice_profile": "professional_british"
+      },
+      "voice_profile": "professional_british",
+      "communication_style": "infj_adhd_optimized"
+    },
+    "web_search": {
+      "type": "web_search",
+      "description": "Search for latest autonomous agent best practices",
+      "priority": "high",
+      "parameters": {
+        "query": "autonomous agent best practices 2025",
+        "max_results": 10
+      }
+    },
+    "code_execution": {
+      "type": "code_execution",
+      "description": "Test Python code for data processing",
+      "priority": "medium",
+      "parameters": {
+        "code": "print('Hello from autonomous team!')\\nresult = [x**2 for x in range(10)]\\nprint(f'Squares: {result}')",
+        "language": "python"
+      }
+    },
+    "api_testing": {
+      "type": "api_testing",
+      "description": "Test Cartesia API connectivity",
+      "priority": "high",
+      "parameters": {
+        "url": "https://api.cartesia.ai/tts/bytes",
+        "method": "POST",
+        "headers": {
+          "Cartesia-API-Key": "test_key",
+          "Cartesia-Version": "2025-04-16"
+        }
+      }
+    },
+    "documentation_lookup": {
+      "type": "documentation_lookup",
+      "description": "Find documentation for voice optimization",
+      "priority": "medium",
+      "parameters": {
+        "query": "voice optimization INFJ ADHD communication"
+      }
+    },
+    "mcp_management": {
+      "type": "mcp_management",
+      "description": "List all available MCP servers",
+      "priority": "low",
+      "parameters": {
+        "action": "list"
+      }
+    },
+    "infrastructure_deployment": {
+      "type": "infrastructure_deployment",
+      "description": "Check Scaleway infrastructure status",
+      "priority": "medium",
+      "parameters": {
+        "action": "status"
+      }
+    },
+    "general_problem_solving": {
+      "type": "general",
+      "description": "Optimize autonomous team performance",
+      "priority": "high",
+      "parameters": {}
+    }
+  }
+}

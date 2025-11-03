@@ -1,0 +1,265 @@
+{
+  "mcpServers": {
+    "autonomous-team-server": {
+      "command": "npx",
+      "args": ["-y", "@autonomous-team/mcp-server"],
+      "env": {
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+        "WINDSURF_IDE": "true"
+      },
+      "description": "Autonomous team task delegation via npx",
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 30000
+    },
+    "deepwiki-official": {
+      "command": "npx",
+      "args": ["-y", "@deepwiki/mcp-server"],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      },
+      "description": "Official DeepWiki documentation server"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_ROOT": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "description": "Filesystem access for autonomous team workspace"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      },
+      "disabled": true,
+      "description": "GitHub repository access (enable with token)"
+    },
+    "cartesia-voice-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/autonomous_team_workspace/integration/cartesia/cartesia_fixed.py"],
+      "env": {
+        "CARTESIA_API_KEY": "sk_car_J5wk4g3bzwyggQ6uBftGMC",
+        "CARTESIA_VERSION": "2025-04-16",
+        "WINDSURF_IDE": "true"
+      },
+      "description": "British female voice synthesis server"
+    }
+  },
+  "windsurf": {
+    "version": "1.0.0",
+    "optimized": true,
+    "npx_compatible": true,
+    "features": {
+      "task_delegation": {
+        "enabled": true,
+        "description": "Delegate tasks to autonomous team via npx",
+        "tools": ["delegate_task", "get_task_status", "list_tasks", "get_team_capabilities"],
+        "shortcuts": {
+          "delegateTask": "ctrl+shift+d",
+          "showTasks": "ctrl+shift+t",
+          "taskStatus": "ctrl+shift+s"
+        }
+      },
+      "voice_synthesis": {
+        "enabled": true,
+        "description": "Generate British female voice responses",
+        "voices": {
+          "professional_british": {
+            "description": "Strategic, calm communication",
+            "use_case": "business_updates",
+            "icon": "briefcase",
+            "color": "#2563eb"
+          },
+          "warm_british": {
+            "description": "Empathetic, supportive tone",
+            "use_case": "help_and_clarification",
+            "icon": "heart",
+            "color": "#dc2626"
+          },
+          "insightful_british": {
+            "description": "Thoughtful, analytical approach",
+            "use_case": "pattern_recognition",
+            "icon": "brain",
+            "color": "#16a34a"
+          }
+        }
+      },
+      "web_search": {
+        "enabled": true,
+        "description": "Real-time web search and documentation retrieval",
+        "engines": ["duckduckgo", "google"],
+        "max_results": 10,
+        "ui_features": {
+          "results_panel": true,
+          "filtering": true,
+          "export": true
+        }
+      },
+      "code_execution": {
+        "enabled": true,
+        "description": "Secure code execution in multiple languages",
+        "languages": {
+          "python": {
+            "icon": "🐍",
+            "color": "#3776ab",
+            "extensions": [".py"]
+          },
+          "javascript": {
+            "icon": "🟨",
+            "color": "#f7df1e",
+            "extensions": [".js", ".mjs"]
+          },
+          "bash": {
+            "icon": "🐚",
+            "color": "#4eaa25",
+            "extensions": [".sh", ".bash"]
+          }
+        },
+        "ui_features": {
+          "output_panel": true,
+          "syntax_highlighting": true,
+          "execution_time": true
+        }
+      },
+      "api_testing": {
+        "enabled": true,
+        "description": "Test and validate API integrations",
+        "features": {
+          "request_builder": true,
+          "response_viewer": true,
+          "history_tracking": true
+        }
+      },
+      "documentation_access": {
+        "enabled": true,
+        "description": "Access DeepWiki and local documentation",
+        "sources": ["deepwiki", "local"],
+        "ui_features": {
+          "sidebar_panel": true,
+          "search_highlighting": true,
+          "bookmarking": true
+        }
+      },
+      "infrastructure_management": {
+        "enabled": true,
+        "description": "Scaleway resource optimization and management",
+        "features": {
+          "resource_monitoring": true,
+          "deployment_control": true,
+          "cost_tracking": true
+        }
+      },
+      "secrets_management": {
+        "enabled": true,
+        "description": "Enterprise-grade secret management with Scaleway",
+        "features": {
+          "secure_storage": true,
+          "environment_sync": true,
+          "access_logging": true
+        }
+      }
+    },
+    "ui": {
+      "theme": "autonomous-team",
+      "layout": {
+        "task_panel": {
+          "position": "right",
+          "width": 350,
+          "collapsible": true,
+          "default_visible": true
+        },
+        "voice_controls": {
+          "position": "bottom",
+          "compact": false,
+          "show_transcript": true
+        },
+        "search_interface": {
+          "position": "top",
+          "placeholder": "Search web or documentation...",
+          "show_filters": true
+        },
+        "code_executor": {
+          "position": "bottom",
+          "split_view": true,
+          "auto_save": true
+        }
+      },
+      "notifications": {
+        "enabled": true,
+        "position": "bottom-right",
+        "duration": 5000,
+        "types": {
+          "task_completed": true,
+          "task_failed": true,
+          "voice_ready": true,
+          "search_results": true,
+          "code_executed": true
+        }
+      }
+    },
+    "performance": {
+      "caching": {
+        "enabled": true,
+        "task_results": true,
+        "search_cache": true,
+        "voice_cache": true,
+        "ttl": 300000,
+        "max_size": "100MB"
+      },
+      "async_processing": {
+        "enabled": true,
+        "max_concurrent_tasks": 5,
+        "queue_size": 50,
+        "timeout": 30000
+      },
+      "optimization": {
+        "lazy_loading": true,
+        "preloading": {
+          "search_index": true,
+          "voice_models": false,
+          "code_executor": true
+        },
+        "compression": true,
+        "minification": false
+      }
+    },
+    "workspace": {
+      "root": "/root/CascadeProjects/autonomous_team_workspace",
+      "watch_files": true,
+      "auto_index": true,
+      "exclude_patterns": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/tasks/results/**",
+        "**/logs/**",
+        "**/__pycache__/**",
+        "**/.pytest_cache/**"
+      ],
+      "include_patterns": [
+        "**/*.py",
+        "**/*.js",
+        "**/*.json",
+        "**/*.md",
+        "**/*.yaml",
+        "**/*.yml",
+        "**/*.txt"
+      ]
+    },
+    "integration": {
+      "npx": {
+        "auto_install": true,
+        "version_check": true,
+        "fallback_to_local": true
+      },
+      "mcp_protocol": {
+        "version": "2024-11-05",
+        "compatibility": "full",
+        "transport": "stdio"
+      }
+    }
+  }
+}

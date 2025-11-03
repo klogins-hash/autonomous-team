@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "deepwiki-official": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@deepwiki/mcp-server"
+      ],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      }
+    }
+  }
+}

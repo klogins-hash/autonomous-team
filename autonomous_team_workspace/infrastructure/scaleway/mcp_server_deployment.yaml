@@ -1,0 +1,15 @@
+args:
+- /root/CascadeProjects/strands-agent-team/autonomous_team_mcp_server.py
+command: python3
+description: Autonomous team MCP server for task delegation
+env:
+  PYTHONPATH: /root/CascadeProjects/autonomous_team_workspace
+  TEAM_WORKSPACE: /root/CascadeProjects/autonomous_team_workspace
+instance_type: PLAY2-PICO
+name: autonomous-team-mcp-server
+project_id: c5d299b8-8462-40fb-b5ae-32a8808bf394
+region: fr-par
+tags:
+- mcp
+- autonomous-team
+- task-management

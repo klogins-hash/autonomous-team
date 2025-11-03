@@ -1,0 +1,99 @@
+```yaml
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: creative_flow_postgres
+    environment:
+      POSTGRES_USER: creative_user
+      POSTGRES_PASSWORD: creative_password
+      POSTGRES_DB: creative_flow
+      POSTGRES_INITDB_ARGS: "-c max_connections=500 -c shared_buffers=256MB -c work_mem=32MB"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U creative_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - creative_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: creative_flow_redis
+    command: redis-server --appendonly yes --maxmemory 8gb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - creative_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: creative_flow_backend
+    environment:
+      DATABASE_URL: postgresql://creative_user:creative_password@postgres:5432/creative_flow
+      REDIS_URL: redis://redis:6379/0
+      API_ENV: development
+      LOG_LEVEL: DEBUG
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - creative_network
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: creative_flow_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+      REACT_APP_WS_URL: ws://localhost:8000
+    volumes:
+      - ./frontend/src:/app/src
+    networks:
+      - creative_network
+    command: npm start
+
+  adminer:
+    image: adminer:latest
+    container_name: creative_flow_adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - creative_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  creative_network:
+    driver: bridge
+```

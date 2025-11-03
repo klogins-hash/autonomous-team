@@ -1,0 +1,174 @@
+```yaml
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: creative_hub_postgres
+    environment:
+      POSTGRES_USER: creative_user
+      POSTGRES_PASSWORD: secure_password_change_me
+      POSTGRES_DB: creative_hub
+      POSTGRES_INITDB_ARGS: "-c max_connections=200 -c shared_buffers=256MB"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U creative_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - creative_hub_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: creative_hub_redis
+    command: redis-server --appendonly yes --maxmemory 16gb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - creative_hub_network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: creative_hub_backend
+    environment:
+      DATABASE_URL: postgresql://creative_user:secure_password_change_me@postgres:5432/creative_hub
+      REDIS_URL: redis://redis:6379/0
+      API_ENV: development
+      API_LOG_LEVEL: DEBUG
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
+    networks:
+      - creative_hub_network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # AI Engine Service
+  ai_engine:
+    build:
+      context: ./ai_engine
+      dockerfile: Dockerfile
+    container_name: creative_hub_ai_engine
+    environment:
+      AI_MODEL_PATH: /models
+      AI_GPU_ENABLED: "false"
+      REDIS_URL: redis://redis:6379/1
+    ports:
+      - "8001:8001"
+    depends_on:
+      - redis
+    volumes:
+      - ./ai_engine:/app
+      - ai_models:/models
+      - /app/__pycache__
+    networks:
+      - creative_hub_network
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+
+  # Real-time Collaboration Service
+  collaboration:
+    build:
+      context: ./collaboration
+      dockerfile: Dockerfile
+    container_name: creative_hub_collaboration
+    environment:
+      REDIS_URL: redis://redis:6379/2
+      WEBSOCKET_PORT: 8002
+    ports:
+      - "8002:8002"
+    depends_on:
+      - redis
+    volumes:
+      - ./collaboration:/app
+      - /app/__pycache__
+    networks:
+      - creative_hub_network
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8002 --reload
+
+  # Frontend Development Server
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: creative_hub_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+      REACT_APP_WEBSOCKET_URL: ws://localhost:8002
+      REACT_APP_AI_ENGINE_URL: http://localhost:8001
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - /app/node_modules
+    networks:
+      - creative_hub_network
+    command: npm start
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: creative_hub_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - creative_hub_network
+
+  # Grafana Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: creative_hub_grafana
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infrastructure/monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./infrastructure/monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - creative_hub_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  ai_models:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  creative_hub_network:
+    driver: bridge
+```

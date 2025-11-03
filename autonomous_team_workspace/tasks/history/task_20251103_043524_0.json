@@ -1,0 +1,57 @@
+{
+  "task_id": "task_20251103_043524_0",
+  "type": "web_search",
+  "priority": "high",
+  "description": "Search for autonomous agent best practices",
+  "parameters": {
+    "query": "autonomous agent best practices 2025",
+    "max_results": 5
+  },
+  "requested_by": "mcp_client",
+  "created_at": "2025-11-03T04:35:24.223225",
+  "status": "completed",
+  "tools_required": [],
+  "voice_profile": "professional_british",
+  "communication_style": "infj_adhd_optimized",
+  "started_at": "2025-11-03T04:35:24.223388",
+  "completed_at": "2025-11-03T04:35:25.238121",
+  "result": {
+    "task_type": "web_search",
+    "status": "success",
+    "query": "autonomous agent best practices 2025",
+    "results_count": 10,
+    "results": [
+      {
+        "title": "Securing and governing the rise of autonomous agents",
+        "url": "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.microsoft.com%2Fen%2Dus%2Fsecurity%2Fblog%2F2025%2F08%2F26%2Fsecuring%2Dand%2Dgoverning%2Dthe%2Drise%2Dof%2Dautonomous%2Dagents%2F&amp;rut=554fac9e91573cb0ec39589ee19849bea5893448578167d2ccdae1f0f17a9104",
+        "snippet": "",
+        "engine": "duckduckgo"
+      },
+      {
+        "title": "Industry News 2025 Safeguarding the Enterprise AI Evolution Best ...",
+        "url": "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.isaca.org%2Fresources%2Fnews%2Dand%2Dtrends%2Findustry%2Dnews%2F2025%2Fsafeguarding%2Dthe%2Denterprise%2Dai%2Devolution%2Dbest%2Dpractices%2Dfor%2Dagentic%2Dai%2Dworkflows&amp;rut=794774ada18b578f68b5724608cd9f76ae35fe68803143f36ae6831b719ba127",
+        "snippet": "",
+        "engine": "duckduckgo"
+      },
+      {
+        "title": "Agentic AI Security: A Guide to Threats, Risks Best Practices 2025 ...",
+        "url": "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.rippling.com%2Fblog%2Fagentic%2Dai%2Dsecurity&amp;rut=261afb718590c24ee01782c9d686a0e96ffb5efbdb77fce8fc1043c6e3a9e1ab",
+        "snippet": "",
+        "engine": "duckduckgo"
+      },
+      {
+        "title": "AI Agent Observability - Evolving Standards and Best Practices",
+        "url": "//duckduckgo.com/l/?uddg=https%3A%2F%2Fopentelemetry.io%2Fblog%2F2025%2Fai%2Dagent%2Dobservability%2F&amp;rut=606a061921253d6662930e73e8fc7e1ee00d91cf807ae0fdce1f4d24eac72304",
+        "snippet": "",
+        "engine": "duckduckgo"
+      },
+      {
+        "title": "Agentic AI #3 \u2014 Top AI Agent Frameworks in 2025: LangChain ... - Medium",
+        "url": "//duckduckgo.com/l/?uddg=https%3A%2F%2Fmedium.com%2F%40iamanraghuvanshi%2Fagentic%2Dai%2D3%2Dtop%2Dai%2Dagent%2Dframeworks%2Din%2D2025%2Dlangchain%2Dautogen%2Dcrewai%2Dbeyond%2D2fc3388e7dec&amp;rut=7e5577784d2837bcd6e46bce14605abd4f7ef7f2f91a5d98678b8c9006282cab",
+        "snippet": "",
+        "engine": "duckduckgo"
+      }
+    ],
+    "message": "Found 10 results for 'autonomous agent best practices 2025'"
+  }
+}

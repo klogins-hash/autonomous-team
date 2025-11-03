@@ -1,0 +1,11 @@
+{
+  "title": "Voice System Optimization",
+  "content": "\n# Voice System Optimization\n\n## British Female Voices\n- Professional: calm, authoritative for strategic updates\n- Warm: empathetic, supportive for clarification\n- Insightful: thoughtful, reflective for pattern recognition\n\n## Audio Quality\n- Sample rate: 44100 Hz for high quality\n- Encoding: pcm_f32le for compatibility\n- Speed: 0.9-1.0x for clarity\n- Natural pauses: 1.2s between complex ideas\n\n## Context Selection\n- Strategic vision -> Insightful voice\n- Help needed -> Warm voice\n- Status updates -> Professional voice\n- Pattern recognition -> Thoughtful voice\n                ",
+  "type": "optimization_guide",
+  "tags": [
+    "voice",
+    "optimization",
+    "british",
+    "audio"
+  ]
+}

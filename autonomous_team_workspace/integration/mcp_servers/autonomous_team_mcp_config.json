@@ -1,0 +1,132 @@
+{
+  "name": "autonomous-team-server",
+  "version": "1.0.0",
+  "description": "MCP server for autonomous team task delegation and management",
+  "command": "python3",
+  "args": [
+    "/root/CascadeProjects/strands-agent-team/autonomous_team_mcp_server.py"
+  ],
+  "env": {
+    "PYTHONPATH": "/root/CascadeProjects/autonomous_team_workspace",
+    "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace"
+  },
+  "capabilities": [
+    "task_delegation",
+    "voice_synthesis",
+    "web_search",
+    "code_execution",
+    "api_testing",
+    "documentation_lookup",
+    "mcp_management",
+    "infrastructure_deployment",
+    "general_problem_solving"
+  ],
+  "tools": [
+    {
+      "name": "delegate_task",
+      "description": "Delegate a task to the autonomous team",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "voice_synthesis",
+              "web_search",
+              "code_execution",
+              "api_testing",
+              "documentation_lookup",
+              "mcp_management",
+              "infrastructure_deployment",
+              "general"
+            ],
+            "description": "Type of task to delegate"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the task"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "urgent"
+            ],
+            "default": "medium"
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Task-specific parameters"
+          },
+          "voice_profile": {
+            "type": "string",
+            "enum": [
+              "professional_british",
+              "warm_british",
+              "insightful_british"
+            ],
+            "default": "professional_british"
+          },
+          "communication_style": {
+            "type": "string",
+            "enum": [
+              "infj_adhd_optimized",
+              "standard",
+              "technical"
+            ],
+            "default": "infj_adhd_optimized"
+          }
+        },
+        "required": [
+          "type",
+          "description"
+        ]
+      }
+    },
+    {
+      "name": "get_task_status",
+      "description": "Get the status of a delegated task",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "ID of the task to check"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      }
+    },
+    {
+      "name": "list_tasks",
+      "description": "List all tasks with optional filtering",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status_filter": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "processing",
+              "completed",
+              "failed"
+            ],
+            "description": "Filter tasks by status"
+          }
+        }
+      }
+    },
+    {
+      "name": "get_team_capabilities",
+      "description": "Get information about autonomous team capabilities",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

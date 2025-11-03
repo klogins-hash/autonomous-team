@@ -1,0 +1,11 @@
+{
+  "title": "Cartesia API Integration Best Practices",
+  "content": "\n# Cartesia API Integration\n\n## Authentication\n- Use Cartesia-API-Key header for authentication\n- Include Cartesia-Version header (YYYY-MM-DD format)\n- Latest version: 2025-04-16\n\n## Voice Synthesis\n- Endpoint: POST /tts/bytes\n- Model: sonic-english for high quality\n- British female voices available\n- Output format: pcm_f32le recommended\n\n## Error Handling\n- Check response status codes\n- Handle authentication errors (401)\n- Handle version header errors (400)\n- Implement retry logic for network issues\n                ",
+  "type": "api_documentation",
+  "tags": [
+    "cartesia",
+    "api",
+    "authentication",
+    "voice"
+  ]
+}

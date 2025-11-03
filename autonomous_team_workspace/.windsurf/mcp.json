@@ -1,0 +1,188 @@
+{
+  "version": "1.0.0",
+  "name": "autonomous-team-windsurf-integration",
+  "description": "Optimized autonomous team MCP configuration for Windsurf IDE",
+  "mcpServers": {
+    "autonomous-team-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/strands-agent-team/autonomous_team_mcp_server.py"],
+      "env": {
+        "PYTHONPATH": "/root/CascadeProjects/autonomous_team_workspace",
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+        "WINDSURF_IDE": "true"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 30000,
+      "description": "Primary autonomous team server for task delegation and management"
+    },
+    "deepwiki-official": {
+      "command": "npx",
+      "args": ["-y", "@deepwiki/mcp-server"],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 15000,
+      "description": "Official DeepWiki documentation access"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_ROOT": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 10000,
+      "description": "Filesystem access to autonomous team workspace"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      },
+      "disabled": true,
+      "autoStart": false,
+      "timeout": 15000,
+      "description": "GitHub repository access (enable with token)"
+    },
+    "cartesia-voice-server": {
+      "command": "python3",
+      "args": ["/root/CascadeProjects/autonomous_team_workspace/integration/cartesia/cartesia_fixed.py"],
+      "env": {
+        "CARTESIA_API_KEY": "sk_car_J5wk4g3bzwyggQ6uBftGMC",
+        "CARTESIA_VERSION": "2025-04-16",
+        "WINDSURF_IDE": "true"
+      },
+      "disabled": false,
+      "autoStart": true,
+      "timeout": 20000,
+      "description": "British female voice synthesis server"
+    }
+  },
+  "windsurf": {
+    "integration": {
+      "enabled": true,
+      "priority": "high",
+      "autoConnect": true,
+      "reconnectInterval": 5000,
+      "maxRetries": 3
+    },
+    "ui": {
+      "showTaskPanel": true,
+      "showVoiceControls": true,
+      "showSearchInterface": true,
+      "showCodeExecutor": true,
+      "showDocumentationPanel": true,
+      "compactMode": false,
+      "theme": "autonomous-team"
+    },
+    "features": {
+      "taskDelegation": {
+        "enabled": true,
+        "shortcuts": {
+          "delegateTask": "ctrl+shift+d",
+          "showTasks": "ctrl+shift+t",
+          "taskStatus": "ctrl+shift+s"
+        },
+        "templates": {
+          "voiceSynthesis": {
+            "type": "voice_synthesis",
+            "priority": "medium",
+            "voice_profile": "professional_british",
+            "communication_style": "infj_adhd_optimized"
+          },
+          "webSearch": {
+            "type": "web_search",
+            "priority": "medium",
+            "max_results": 10
+          },
+          "codeExecution": {
+            "type": "code_execution",
+            "priority": "medium",
+            "language": "python"
+          }
+        }
+      },
+      "voiceSynthesis": {
+        "enabled": true,
+        "autoPlay": false,
+        "defaultVoice": "professional_british",
+        "voices": {
+          "professional_british": {
+            "description": "Calm, authoritative for strategic updates",
+            "use_case": "business_communication"
+          },
+          "warm_british": {
+            "description": "Empathetic, supportive for clarification",
+            "use_case": "help_and_support"
+          },
+          "insightful_british": {
+            "description": "Thoughtful, reflective for pattern recognition",
+            "use_case": "analysis_and_insights"
+          }
+        }
+      },
+      "webSearch": {
+        "enabled": true,
+        "defaultEngine": "duckduckgo",
+        "maxResults": 10,
+        "openInNewTab": true,
+        "saveHistory": true
+      },
+      "codeExecution": {
+        "enabled": true,
+        "defaultLanguage": "python",
+        "timeout": 30000,
+        "showOutput": true,
+        "saveHistory": true,
+        "languages": ["python", "javascript", "bash"]
+      },
+      "documentation": {
+        "enabled": true,
+        "autoSearch": true,
+        "prioritySources": ["deepwiki", "local"],
+        "openInSidebar": true,
+        "highlightMatches": true
+      }
+    },
+    "performance": {
+      "caching": {
+        "enabled": true,
+        "ttl": 300000,
+        "maxSize": "100MB"
+      },
+      "async": {
+        "enabled": true,
+        "maxConcurrentTasks": 5,
+        "queueSize": 50
+      },
+      "optimization": {
+        "lazyLoading": true,
+        "preloading": false,
+        "compression": true
+      }
+    }
+  },
+  "workspace": {
+    "root": "/root/CascadeProjects/autonomous_team_workspace",
+    "watchFiles": true,
+    "autoIndex": true,
+    "excludePatterns": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/tasks/results/**",
+      "**/logs/**"
+    ]
+  },
+  "logging": {
+    "level": "info",
+    "file": "/root/CascadeProjects/autonomous_team_workspace/logs/windsurf_mcp.log",
+    "maxSize": "10MB",
+    "maxFiles": 5
+  }
+}

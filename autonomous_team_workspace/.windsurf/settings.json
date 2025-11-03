@@ -1,0 +1,203 @@
+{
+  "version": "1.0.0",
+  "name": "autonomous-team-windsurf-settings",
+  "description": "Optimized settings for autonomous team in Windsurf IDE",
+  "mcp": {
+    "enabled": true,
+    "autoStart": true,
+    "servers": {
+      "autonomous-team-server": {
+        "command": "python3",
+        "args": ["/root/CascadeProjects/strands-agent-team/autonomous_team_windsurf_mcp.py"],
+        "env": {
+          "PYTHONPATH": "/root/CascadeProjects/autonomous_team_workspace",
+          "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+          "WINDSURF_IDE": "true"
+        },
+        "timeout": 30000,
+        "restartOnFailure": true,
+        "maxRestarts": 3
+      }
+    }
+  },
+  "ui": {
+    "theme": "autonomous-team",
+    "showTaskPanel": true,
+    "showVoiceControls": true,
+    "showSearchInterface": true,
+    "showCodeExecutor": true,
+    "compactMode": false,
+    "sidebar": {
+      "position": "right",
+      "width": 300,
+      "collapsible": true
+    }
+  },
+  "features": {
+    "taskDelegation": {
+      "enabled": true,
+      "shortcuts": {
+        "delegateTask": "ctrl+shift+d",
+        "showTasks": "ctrl+shift+t",
+        "taskStatus": "ctrl+shift+s",
+        "quickVoice": "ctrl+shift+v"
+      },
+      "templates": {
+        "voiceSynthesis": {
+          "type": "voice_synthesis",
+          "priority": "medium",
+          "voice_profile": "professional_british",
+          "communication_style": "infj_adhd_optimized",
+          "windsurf_ui": {
+            "show_audio_player": true,
+            "auto_play": false
+          }
+        },
+        "quickSearch": {
+          "type": "web_search",
+          "priority": "medium",
+          "max_results": 10,
+          "windsurf_ui": {
+            "show_results_panel": true,
+            "open_in_new_tab": true
+          }
+        },
+        "codeTest": {
+          "type": "code_execution",
+          "priority": "medium",
+          "language": "python",
+          "windsurf_ui": {
+            "show_output_panel": true,
+            "syntax_highlighting": true
+          }
+        }
+      }
+    },
+    "voiceSynthesis": {
+      "enabled": true,
+      "defaultVoice": "professional_british",
+      "autoPlay": false,
+      "showTranscript": true,
+      "voices": {
+        "professional_british": {
+          "description": "Strategic, calm communication",
+          "color": "#2563eb",
+          "icon": "briefcase"
+        },
+        "warm_british": {
+          "description": "Empathetic, supportive tone",
+          "color": "#dc2626",
+          "icon": "heart"
+        },
+        "insightful_british": {
+          "description": "Thoughtful, analytical approach",
+          "color": "#16a34a",
+          "icon": "brain"
+        }
+      }
+    },
+    "webSearch": {
+      "enabled": true,
+      "defaultEngine": "duckduckgo",
+      "maxResults": 10,
+      "openInNewTab": true,
+      "saveHistory": true,
+      "filters": {
+        "dateRange": true,
+        "sourceType": true,
+        "language": true
+      }
+    },
+    "codeExecution": {
+      "enabled": true,
+      "defaultLanguage": "python",
+      "timeout": 30000,
+      "showOutput": true,
+      "saveHistory": true,
+      "languages": {
+        "python": {
+          "icon": "🐍",
+          "color": "#3776ab",
+          "extensions": [".py"]
+        },
+        "javascript": {
+          "icon": "🟨",
+          "color": "#f7df1e",
+          "extensions": [".js", ".mjs"]
+        },
+        "bash": {
+          "icon": "🐚",
+          "color": "#4eaa25",
+          "extensions": [".sh", ".bash"]
+        }
+      }
+    }
+  },
+  "performance": {
+    "caching": {
+      "enabled": true,
+      "taskResults": true,
+      "searchResults": true,
+      "voiceCache": true,
+      "ttl": 300000
+    },
+    "async": {
+      "enabled": true,
+      "maxConcurrentTasks": 5,
+      "queueSize": 50,
+      "timeout": 30000
+    },
+    "optimization": {
+      "lazyLoading": true,
+      "preloading": {
+        "voiceModels": false,
+        "searchIndex": true,
+        "codeExecutor": true
+      },
+      "compression": true
+    }
+  },
+  "workspace": {
+    "root": "/root/CascadeProjects/autonomous_team_workspace",
+    "watchFiles": true,
+    "autoIndex": true,
+    "excludePatterns": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/tasks/results/**",
+      "**/logs/**",
+      "**/__pycache__/**"
+    ],
+    "includePatterns": [
+      "**/*.py",
+      "**/*.json",
+      "**/*.md",
+      "**/*.yaml",
+      "**/*.yml"
+    ]
+  },
+  "notifications": {
+    "enabled": true,
+    "taskCompleted": true,
+    "taskFailed": true,
+    "voiceReady": true,
+    "searchResults": true,
+    "codeExecuted": true,
+    "position": "bottom-right",
+    "duration": 5000
+  },
+  "logging": {
+    "level": "info",
+    "file": "/root/CascadeProjects/autonomous_team_workspace/logs/windsurf.log",
+    "maxSize": "10MB",
+    "maxFiles": 5,
+    "includeTimestamps": true,
+    "includeTaskIds": true
+  },
+  "security": {
+    "sandboxExecution": true,
+    "apiTokenValidation": true,
+    "secureStorage": true,
+    "auditLogging": true
+  }
+}

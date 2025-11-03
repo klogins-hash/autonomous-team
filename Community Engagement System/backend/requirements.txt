@@ -1,0 +1,55 @@
+```
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.13.0
+
+# Caching & Session
+redis==5.0.1
+aioredis==2.0.1
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Data Validation
+email-validator==2.1.0
+
+# API Documentation
+fastapi-cors==0.0.6
+
+# Async Support
+httpx==0.25.2
+aiofiles==23.2.1
+
+# Logging
+python-json-logger==2.0.7
+
+# Task Queue
+celery==5.3.4
+flower==2.0.1
+
+# Storage
+boto3==1.29.7
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+httpx==0.25.2
+
+# Monitoring
+prometheus-client==0.19.0
+
+# Utilities
+python-slugify==8.0.1
+pytz==2023.3
+```

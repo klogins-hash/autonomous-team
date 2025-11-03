@@ -1,0 +1,61 @@
+compute:
+  instances:
+    agent_coordinator:
+      cpu: 4
+      memory: 8192
+      purpose: Agent coordination and orchestration
+      storage: 50
+      type: DEV1-S
+    code_execution:
+      cpu: 16
+      memory: 32768
+      purpose: E2B sandbox and code execution
+      storage: 200
+      type: DEV1-L
+    voice_processing:
+      cpu: 8
+      memory: 16384
+      purpose: Cartesia voice processing and synthesis
+      storage: 100
+      type: DEV1-M
+    web_search:
+      cpu: 2
+      memory: 4096
+      purpose: Web search and documentation retrieval
+      storage: 20
+      type: PLAY2-PICO
+networking:
+  cdn:
+    purpose: Cache voice responses and documentation
+  load_balancer:
+    purpose: Distribute requests across agent instances
+    type: L7
+optimization:
+  agent_workload_balancing: true
+  auto_scaling: true
+  cost_efficiency: true
+  regional_optimization: true
+project:
+  environment: production
+  name: autonomous-team-infrastructure
+  organization_id: c5d299b8-8462-40fb-b5ae-32a8808bf394
+  project_id: c5d299b8-8462-40fb-b5ae-32a8808bf394
+  region: fr-par
+  zones:
+  - fr-par-2a
+  - fr-par-2b
+storage:
+  databases:
+    agent_memory:
+      instance_type: db-dev-1x-2gb
+      purpose: Agent shared memory and context
+      type: postgresql
+    documentation_cache:
+      instance_type: redis-dev-1x-512mb
+      purpose: Documentation and search cache
+      type: redis
+  object_storage:
+    agent_backups:
+      purpose: Autonomous agent state backups
+    voice_assets:
+      purpose: Cartesia voice files and audio cache

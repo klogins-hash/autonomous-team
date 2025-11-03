@@ -1,0 +1,6 @@
+name: autonomous-team-mcp-servers
+organization_id: c5d299b8-8462-40fb-b5ae-32a8808bf394
+project_id: c5d299b8-8462-40fb-b5ae-32a8808bf394
+region: fr-par
+servers: {}
+zone: fr-par-1

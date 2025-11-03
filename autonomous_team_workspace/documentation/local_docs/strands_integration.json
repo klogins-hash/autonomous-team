@@ -1,0 +1,11 @@
+{
+  "title": "Strands Ecosystem Integration",
+  "content": "\n# Strands Ecosystem Integration\n\n## Repository Access\n- Core: /root/CascadeProjects/strands-agent-team\n- Tools: Agent builder and tools\n- Documentation: Complete docs access\n- Python: All Python repositories\n\n## Integration Points\n- Agent builder for custom agents\n- Tools repository for extensions\n- Documentation for best practices\n- Core system for coordination\n\n## Best Practices\n- Use agent-native communication patterns\n- Implement shared memory for context\n- Follow autonomous coordination principles\n- Maintain documentation-first approach\n                ",
+  "type": "integration_guide",
+  "tags": [
+    "strands",
+    "integration",
+    "ecosystem",
+    "repositories"
+  ]
+}

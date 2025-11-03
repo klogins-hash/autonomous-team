@@ -1,0 +1,101 @@
+{
+  "mcpServers": {
+    "deepwiki-official": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@deepwiki/mcp-server"
+      ],
+      "env": {
+        "DEEPWIKI_API_KEY": "your_deepwiki_api_key_here",
+        "DEEPWIKI_BASE_URL": "https://api.deepwiki.ai"
+      },
+      "description": "Official DeepWiki documentation server",
+      "added_at": "2025-11-03T04:30:33.665810",
+      "status": "configured"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem"
+      ],
+      "env": {
+        "FILESYSTEM_ROOT": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "description": "Filesystem access for autonomous team",
+      "added_at": "2025-11-03T04:30:33.665992",
+      "status": "configured"
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+      },
+      "description": "GitHub repository access",
+      "added_at": "2025-11-03T04:30:33.666240",
+      "status": "configured"
+    },
+    "cartesia-voice-server": {
+      "command": "python3",
+      "args": [
+        "/root/CascadeProjects/autonomous_team_workspace/integration/cartesia_fixed.py"
+      ],
+      "env": {},
+      "description": "Cartesia voice synthesis server for autonomous team",
+      "added_at": "2025-11-03T04:30:43.994370",
+      "status": "configured"
+    },
+    "autonomous-team-server": {
+      "command": "python3",
+      "args": [
+        "/root/CascadeProjects/strands-agent-team/autonomous_team_mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/root/CascadeProjects/autonomous_team_workspace",
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace"
+      },
+      "description": "Autonomous team task delegation and management server",
+      "added_at": "2025-11-03T04:34:45.000Z",
+      "status": "active"
+    },
+    "autonomous-team-windsurf": {
+      "command": "python3",
+      "args": [
+        "/root/CascadeProjects/strands-agent-team/autonomous_team_windsurf_mcp.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/root/CascadeProjects/autonomous_team_workspace",
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+        "WINDSURF_IDE": "true"
+      },
+      "description": "Windsurf IDE optimized autonomous team server",
+      "added_at": "2025-11-03T04:36:45.000Z",
+      "status": "active",
+      "windsurf_optimized": true
+    }
+  },
+  "last_updated": "2025-11-03T04:30:43.994389",
+  "windsurf_integration": {
+    "enabled": true,
+    "version": "1.0.0",
+    "optimized_server": "autonomous-team-windsurf",
+    "ui_features": {
+      "task_panel": true,
+      "voice_controls": true,
+      "search_interface": true,
+      "code_executor": true,
+      "documentation_panel": true
+    },
+    "shortcuts": {
+      "delegate_task": "ctrl+shift+d",
+      "show_tasks": "ctrl+shift+t",
+      "task_status": "ctrl+shift+s",
+      "quick_voice": "ctrl+shift+v"
+    }
+  }
+}
