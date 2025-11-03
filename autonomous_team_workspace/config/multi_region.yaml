@@ -1,0 +1,31 @@
+regions:
+- cache: true
+  database: true
+  functions:
+  - autonomous-coordinator
+  - voice-synthesis-agent
+  name: fr-par
+  primary: true
+- cache: true
+  database: false
+  functions:
+  - web-search-agent
+  - code-execution-sandbox
+  name: nl-ams
+  primary: false
+- cache: false
+  database: false
+  functions:
+  - api-testing-agent
+  - documentation-lookup
+  name: pl-waw
+  primary: false
+replication:
+  cache: sync
+  database: async
+  files: sync
+routing:
+  failover: true
+  geo_dns: true
+  health_checks: true
+  latency_based: true

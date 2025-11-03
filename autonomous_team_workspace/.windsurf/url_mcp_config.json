@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "name": "autonomous-team-url-mcp",
+  "description": "URL-based autonomous team MCP for Windsurf IDE",
+  "url_based": true,
+  "mcpServers": {
+    "autonomous-team-url": {
+      "command": "python3",
+      "args": [
+        "/root/CascadeProjects/strands-agent-team/autonomous_team_url_mcp.py"
+      ],
+      "env": {
+        "TEAM_WORKSPACE": "/root/CascadeProjects/autonomous_team_workspace",
+        "WINDSURF_IDE": "true",
+        "MCP_METHOD": "url_based",
+        "BASE_URL": "https://163.172.191.225"
+      },
+      "description": "URL-based autonomous team server",
+      "url_method": true
+    }
+  },
+  "api_endpoints": {
+    "base_url": "https://163.172.191.225",
+    "voice_synthesis": "/voice",
+    "web_search": "/search",
+    "code_execution": "/execute",
+    "api_testing": "/test-api",
+    "documentation_lookup": "/docs",
+    "task_delegation": "/tasks",
+    "mcp_management": "/mcp",
+    "infrastructure": "/infrastructure"
+  }
+}

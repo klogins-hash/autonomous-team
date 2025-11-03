@@ -1,0 +1,20 @@
+caching:
+  max_cache_size: 100MB
+  query_cache: true
+  redis_ttl: 300
+  response_cache: true
+cold_start_optimization:
+  enabled: true
+  interval: 5m
+  keep_warm: true
+  provisioned_concurrency: 1
+database:
+  connection_pooling: true
+  index_optimization: true
+  max_connections: 20
+  query_timeout: 30
+monitoring:
+  auto_scaling_metrics: true
+  cost_tracking: true
+  performance_alerts: true
+  real_time_metrics: true

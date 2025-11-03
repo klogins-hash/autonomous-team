@@ -1,0 +1,34 @@
+api_testing:
+  authentication:
+  - bearer
+  - basic
+  - oauth2
+  mock_servers: true
+  performance_testing: true
+  test_suites: true
+code_execution:
+  execution_timeout: 60
+  file_upload: true
+  new_languages:
+  - rust
+  - go
+  - typescript
+  - java
+  package_installation: true
+voice_synthesis:
+  emotion_control: true
+  formats:
+  - mp3
+  - wav
+  - ogg
+  new_voices:
+  - professional_american
+  - warm_australian
+  - insightful_canadian
+  real_time: true
+web_search:
+  date_range: true
+  language_detection: true
+  result_caching: true
+  semantic_search: true
+  source_filtering: true
